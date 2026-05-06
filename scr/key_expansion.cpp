@@ -17,7 +17,7 @@ AES_128::~AES_128() {
 }
 
 
-void AES_128::get_round_key(int round_num, uint8_t* out_key) {
+void AES_128::get_round_key(int round_num, uint8_t* out_key) const {
     if (!out_key) return;
     for (int i = 0; i < 16; i++) {
         out_key[i] = round_keys[round_num * 16 + i];
