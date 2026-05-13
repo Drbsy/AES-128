@@ -43,3 +43,82 @@ void aes_128_encrypt(const uint8_t* plain_text, const uint8_t* key, uint8_t* cip
     for (int i = 0; i < 16; i++) wipe_rk[i] = 0;
 }
 
+void aes_192_encrypt(const uint8_t* plain_text, const uint8_t* key, uint8_t* ciphertext){
+      
+    if (!plain_text || !key || !ciphertext) return;
+    
+    uint8_t state[16];
+    memcpy(state, plain_text, 16);
+
+    AES_192 aes(key);
+    uint8_t round_key[16];
+    
+    // Round : 0
+    aes.get_round_key(0, round_key);
+    add_round_key(state, round_key);
+
+    // Round : 1 -> 11
+    for (int round = 1; round <=11; round++){
+        substitute_bytes(state);
+        shift_rows(state);
+        mix_columns(state);
+        aes.get_round_key(round, round_key);
+        add_round_key(state, round_key);
+    }
+
+    // Round : 12
+    substitute_bytes(state);
+    shift_rows(state);
+    aes.get_round_key(12, round_key);
+    add_round_key(state, round_key);
+
+
+    memcpy(ciphertext, state, 16);
+
+
+    volatile uint8_t* wipe = state;
+    for (int i = 0; i < 16; i++) wipe[i] = 0;
+ 
+    volatile uint8_t* wipe_rk = round_key;
+    for (int i = 0; i < 16; i++) wipe_rk[i] = 0;
+}
+
+void aes_256_encrypt(const uint8_t* plain_text, const uint8_t* key, uint8_t* ciphertext){
+      
+    if (!plain_text || !key || !ciphertext) return;
+    
+    uint8_t state[16];
+    memcpy(state, plain_text, 16);
+
+    AES_256 aes(key);
+    uint8_t round_key[16];
+    
+    // Round : 0
+    aes.get_round_key(0, round_key);
+    add_round_key(state, round_key);
+
+    // Round : 1 -> 13
+    for (int round = 1; round <=13; round++){
+        substitute_bytes(state);
+        shift_rows(state);
+        mix_columns(state);
+        aes.get_round_key(round, round_key);
+        add_round_key(state, round_key);
+    }
+
+    // Round : 14
+    substitute_bytes(state);
+    shift_rows(state);
+    aes.get_round_key(14, round_key);
+    add_round_key(state, round_key);
+
+
+    memcpy(ciphertext, state, 16);
+
+
+    volatile uint8_t* wipe = state;
+    for (int i = 0; i < 16; i++) wipe[i] = 0;
+ 
+    volatile uint8_t* wipe_rk = round_key;
+    for (int i = 0; i < 16; i++) wipe_rk[i] = 0;
+}
