@@ -90,5 +90,3 @@ uint8_t plaintext[16] = {0};
 aes_128_decrypt(ciphertext_in, key, plaintext);
 
 ```
-# Notes
-This Project is not completed
