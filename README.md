@@ -1,18 +1,18 @@
 
 
-# AES 128
+# AES
 
-I built this AES-128 implementation to strengthen my understanding of cryptography and to integrate it into my password manager.
+I built this AES implementation to strengthen my understanding of cryptography and to integrate it into my password manager.
 
 ---
 
 # Usage
 
-This AES-128 implementation provides 2 main functions:
+This AES implementation provides 2 main functions for evry AES (128-192-256).
 
 ---
 
-## 1. Encryption Function
+## 1. Encryption Function (AES 128) as example :
 
 ### Header file
 ```c
